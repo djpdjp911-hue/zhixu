@@ -6,7 +6,9 @@ const browser=await chromium.launch({headless:true,...(process.env.CHROME_PATH?{
 const page=await browser.newPage({viewport:{width:1440,height:810},deviceScaleFactor:4/3});
 await mkdir('outputs/demo',{recursive:true});
 async function shot(id,title){
+ await page.evaluate(()=>{if(!document.getElementById('demo-style')){const style=document.createElement('style');style.id='demo-style';style.textContent='*{animation:none!important;transition:none!important}.toast{visibility:hidden!important}';document.head.append(style);}});
  await page.evaluate(title=>{document.getElementById('demo-label')?.remove();const el=document.createElement('div');el.id='demo-label';el.textContent='知序 · 开发版 / 未调用云端模型     '+title;el.style.cssText='position:fixed;bottom:0;left:0;right:0;z-index:999;pointer-events:none;background:#254d37;color:#e6efdf;padding:11px 24px;font:12px Microsoft YaHei;text-align:center;letter-spacing:1px;';document.body.append(el);},title);
+ await page.waitForTimeout(150);
  await page.screenshot({path:`outputs/demo/${id}.png`});
 }
 try{

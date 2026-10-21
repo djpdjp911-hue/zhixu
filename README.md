@@ -71,6 +71,14 @@ npm run build
 
 核心测试覆盖出处偏移、分块边界、检索、拒答、引用编号、RRF、练习、复习任务、备份格式和 Gemini 模拟工具协议。模拟测试不证明真实模型效果。
 
+## 开发版交付材料
+
+`output/pdf/知序-技术文档-开发稿.pdf`：11 页，已渲染检查。可编辑源文件为 `docs/技术文档.md`。
+
+`output/video/知序-功能演示-开发版.mp4`：约 6 分钟、1920x1080，实际应用页面截图与中文合成旁白组成，不是连续录屏，未调用云端模型。视频在本地单独交付，不纳入源码 Git。正式参赛前需要真实 AI 演示和队员本人讲解。
+
+录制与旁白源在 `scripts/capture-demo.mjs`、`scripts/narrate-demo.ps1`、`scripts/assemble-demo.py` 和 `docs/开发版视频旁白.json`。生成视频需要 Playwright、系统中文语音、Python 与 imageio-ffmpeg。
+
 ## 技术架构
 
 - React 19 + TypeScript，Vinext 提供 Next.js App Router 兼容运行方式。
