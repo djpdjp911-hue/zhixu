@@ -1,0 +1,334 @@
+{
+  "label": "小样本开发集；非独立测试集，非学习效果结论",
+  "runAt": "2026-10-21T04:04:21.998Z",
+  "corpusSha256": "6383c6d10f48503a6c303accb2f8a66226793b990dcb83a5f0cf9b6ba3c72068",
+  "querySetSha256": "3cf35ac6a2365b7b48d3a544413a20683dad2e79d203c01a9395ab89bb6ad263",
+  "documents": 4,
+  "chunks": 24,
+  "questions": 30,
+  "answerable": 24,
+  "unanswerable": 6,
+  "retrieval": "BM25 (no embeddings, no LLM)",
+  "elapsedMs": 24.09,
+  "metrics": {
+    "recallAt1": 0.9583333333333334,
+    "recallAt5": 1,
+    "mrr": 0.9791666666666666,
+    "noAnswerRefusal": 1
+  },
+  "rows": [
+    {
+      "id": "r01",
+      "question": "Promise.then 和 setTimeout 谁先运行？",
+      "section": "事件循环",
+      "retrieved": [
+        "微任务与定时器",
+        "事件循环"
+      ],
+      "firstRelevant": 2,
+      "refused": false
+    },
+    {
+      "id": "r02",
+      "question": "同步输出 A D，异步输出 B C 的顺序是什么？",
+      "section": "微任务与定时器",
+      "retrieved": [
+        "微任务与定时器",
+        "状态快照"
+      ],
+      "firstRelevant": 1,
+      "refused": false
+    },
+    {
+      "id": "r03",
+      "question": "requestAnimationFrame 在什么时候执行？",
+      "section": "渲染时机",
+      "retrieved": [
+        "渲染时机"
+      ],
+      "firstRelevant": 1,
+      "refused": false
+    },
+    {
+      "id": "r04",
+      "question": "DOM 和 CSSOM 之后的渲染流程是什么？",
+      "section": "浏览器渲染流水线",
+      "retrieved": [
+        "浏览器渲染流水线",
+        "渲染时机"
+      ],
+      "firstRelevant": 1,
+      "refused": false
+    },
+    {
+      "id": "r05",
+      "question": "反复读取 offsetHeight 为什么会影响页面性能？",
+      "section": "重排与重绘",
+      "retrieved": [
+        "重排与重绘",
+        "检索增强生成"
+      ],
+      "firstRelevant": 1,
+      "refused": false
+    },
+    {
+      "id": "r06",
+      "question": "LCP INP CLS 分别关注什么？",
+      "section": "性能测量",
+      "retrieved": [
+        "性能测量"
+      ],
+      "firstRelevant": 1,
+      "refused": false
+    },
+    {
+      "id": "r07",
+      "question": "setCount 函数式更新如何计算新状态？",
+      "section": "状态快照",
+      "retrieved": [
+        "状态快照",
+        "不可变更新",
+        "状态提升",
+        "渲染时机"
+      ],
+      "firstRelevant": 1,
+      "refused": false
+    },
+    {
+      "id": "r08",
+      "question": "React 更新嵌套对象状态需要复制哪些对象？",
+      "section": "不可变更新",
+      "retrieved": [
+        "不可变更新",
+        "状态快照",
+        "列表与 Key"
+      ],
+      "firstRelevant": 1,
+      "refused": false
+    },
+    {
+      "id": "r09",
+      "question": "兄弟组件共享数据应该把状态放在哪里？",
+      "section": "状态提升",
+      "retrieved": [
+        "状态提升",
+        "列表与 Key",
+        "no-cache 与 no-store"
+      ],
+      "firstRelevant": 1,
+      "refused": false
+    },
+    {
+      "id": "r10",
+      "question": "Effect 的清理函数用于什么？",
+      "section": "Effect 与外部系统",
+      "retrieved": [
+        "Effect 与外部系统",
+        "状态快照"
+      ],
+      "firstRelevant": 1,
+      "refused": false
+    },
+    {
+      "id": "r11",
+      "question": "列表使用数组索引作为 key 有什么问题？",
+      "section": "列表与 Key",
+      "retrieved": [
+        "列表与 Key",
+        "检索增强生成"
+      ],
+      "firstRelevant": 1,
+      "refused": false
+    },
+    {
+      "id": "r12",
+      "question": "是否应该默认给所有组件添加 memo？",
+      "section": "组件边界",
+      "retrieved": [
+        "组件边界"
+      ],
+      "firstRelevant": 1,
+      "refused": false
+    },
+    {
+      "id": "r13",
+      "question": "Cache-Control max-age 如何决定强缓存？",
+      "section": "强缓存",
+      "retrieved": [
+        "强缓存",
+        "no-cache 与 no-store"
+      ],
+      "firstRelevant": 1,
+      "refused": false
+    },
+    {
+      "id": "r14",
+      "question": "ETag 和 If-None-Match 有什么关系？",
+      "section": "协商缓存",
+      "retrieved": [
+        "协商缓存"
+      ],
+      "firstRelevant": 1,
+      "refused": false
+    },
+    {
+      "id": "r15",
+      "question": "no-cache 是不是不允许存储响应？",
+      "section": "no-cache 与 no-store",
+      "retrieved": [
+        "no-cache 与 no-store",
+        "强缓存"
+      ],
+      "firstRelevant": 1,
+      "refused": false
+    },
+    {
+      "id": "r16",
+      "question": "部署静态资源和 HTML 的上传顺序是什么？",
+      "section": "静态资源部署",
+      "retrieved": [
+        "静态资源部署",
+        "强缓存",
+        "浏览器渲染流水线"
+      ],
+      "firstRelevant": 1,
+      "refused": false
+    },
+    {
+      "id": "r17",
+      "question": "搜索请求后发先至怎么避免旧结果覆盖？",
+      "section": "请求取消与竞态",
+      "retrieved": [
+        "请求取消与竞态",
+        "检索评估",
+        "强缓存"
+      ],
+      "firstRelevant": 1,
+      "refused": false
+    },
+    {
+      "id": "r18",
+      "question": "服务器错误时怎样安排重试和退避？",
+      "section": "错误与重试",
+      "retrieved": [
+        "错误与重试",
+        "协商缓存",
+        "强缓存"
+      ],
+      "firstRelevant": 1,
+      "refused": false
+    },
+    {
+      "id": "r19",
+      "question": "RAG 会自动保证回答正确吗？",
+      "section": "检索增强生成",
+      "retrieved": [
+        "检索增强生成",
+        "证据与拒答",
+        "微任务与定时器"
+      ],
+      "firstRelevant": 1,
+      "refused": false
+    },
+    {
+      "id": "r20",
+      "question": "分块为什么需要保留标题和页码？",
+      "section": "结构化分块",
+      "retrieved": [
+        "结构化分块"
+      ],
+      "firstRelevant": 1,
+      "refused": false
+    },
+    {
+      "id": "r21",
+      "question": "BM25 与向量检索能用 RRF 融合吗？",
+      "section": "混合检索",
+      "retrieved": [
+        "混合检索"
+      ],
+      "firstRelevant": 1,
+      "refused": false
+    },
+    {
+      "id": "r22",
+      "question": "检索分数可以当作回答正确概率吗？",
+      "section": "证据与拒答",
+      "retrieved": [
+        "证据与拒答",
+        "检索增强生成",
+        "混合检索"
+      ],
+      "firstRelevant": 1,
+      "refused": false
+    },
+    {
+      "id": "r23",
+      "question": "上传文档中的提示注入要怎样防护？",
+      "section": "提示注入防护",
+      "retrieved": [
+        "提示注入防护"
+      ],
+      "firstRelevant": 1,
+      "refused": false
+    },
+    {
+      "id": "r24",
+      "question": "Recall 和 MRR 用于评估什么？",
+      "section": "检索评估",
+      "retrieved": [
+        "检索评估"
+      ],
+      "firstRelevant": 1,
+      "refused": false
+    },
+    {
+      "id": "n01",
+      "question": "火星地表矿物的同位素测定方法",
+      "section": null,
+      "retrieved": [],
+      "firstRelevant": 0,
+      "refused": true
+    },
+    {
+      "id": "n02",
+      "question": "明朝郑和下西洋的舰船有多大？",
+      "section": null,
+      "retrieved": [],
+      "firstRelevant": 0,
+      "refused": true
+    },
+    {
+      "id": "n03",
+      "question": "柴可夫斯基创作了哪些芭蕾舞剧？",
+      "section": null,
+      "retrieved": [],
+      "firstRelevant": 0,
+      "refused": true
+    },
+    {
+      "id": "n04",
+      "question": "纳维斯托克斯方程的光滑性解法",
+      "section": null,
+      "retrieved": [],
+      "firstRelevant": 0,
+      "refused": true
+    },
+    {
+      "id": "n05",
+      "question": "怎么炖牛腩才能软烂入味？",
+      "section": null,
+      "retrieved": [],
+      "firstRelevant": 0,
+      "refused": true
+    },
+    {
+      "id": "n06",
+      "question": "四川盆地沉积岩形成于什么年代？",
+      "section": null,
+      "retrieved": [],
+      "firstRelevant": 0,
+      "refused": true
+    }
+  ]
+}
