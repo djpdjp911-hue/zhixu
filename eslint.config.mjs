@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     ".sites-runtime/**",
     "outputs/**",
     "work/**",
+    // Copied verbatim from pdfjs-dist by scripts/sync-pdf-worker.mjs.
+    "public/pdf.worker.min.mjs",
   ]),
   {
     files: ["components/ui/**/*.{ts,tsx}", "hooks/use-mobile.ts"],
@@ -22,6 +24,11 @@ const eslintConfig = defineConfig([
       "react-hooks/purity": "off",
       "react-hooks/set-state-in-effect": "off",
     },
+  },
+  {
+    // Tests assert on untyped JSON wire payloads sent to mocked model APIs.
+    files: ["tests/**/*.ts"],
+    rules: { "@typescript-eslint/no-explicit-any": "off" },
   },
 ]);
 
