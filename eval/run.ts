@@ -1,15 +1,65 @@
-import {createHash} from 'node:crypto';
-import {mkdir,writeFile} from 'node:fs/promises';
-import {performance} from 'node:perf_hooks';
-import {sampleDocuments} from '../lib/samples.ts';
-import {chunkDocuments,retrieve,tokenize} from '../lib/retrieval.ts';
-import {questions} from './questions.ts';
-const chunks=chunkDocuments(sampleDocuments),start=performance.now();
-const rows=questions.map(q=>{const hits=retrieve(q.question,chunks,5);return {...q,retrieved:hits.map(h=>h.section),firstRelevant:q.section?hits.findIndex(h=>h.section===q.section)+1:0,refused:hits.length===0};});
-const answerable=rows.filter(r=>r.section),unanswerable=rows.filter(r=>!r.section);
-const metrics={recallAt1:answerable.filter(r=>r.firstRelevant===1).length/answerable.length,recallAt5:answerable.filter(r=>r.firstRelevant>0).length/answerable.length,mrr:answerable.reduce((n,r)=>n+(r.firstRelevant?1/r.firstRelevant:0),0)/answerable.length,noAnswerRefusal:unanswerable.filter(r=>r.refused).length/unanswerable.length};
-const result={label:'小样本开发集；非独立测试集，非学习效果结论',runAt:new Date().toISOString(),corpusSha256:createHash('sha256').update(JSON.stringify(sampleDocuments)).digest('hex'),querySetSha256:createHash('sha256').update(JSON.stringify(questions)).digest('hex'),documents:sampleDocuments.length,chunks:chunks.length,questions:rows.length,answerable:answerable.length,unanswerable:unanswerable.length,retrieval:'BM25 (no embeddings, no LLM)',elapsedMs:Math.round((performance.now()-start)*100)/100,metrics,rows};
-await mkdir('docs',{recursive:true});await writeFile('docs/evaluation.json',JSON.stringify(result,null,2));
-const pct=(x:number)=>(x*100).toFixed(1)+'%';
-await writeFile('docs/检索评测报告.md',`# 知序检索评测（开发集）\n\n运行时间：${result.runAt}\n\n语料：${result.documents} 份原创示例资料，${result.chunks} 个片段。问题集：${result.answerable} 个可回答问题，${result.unanswerable} 个资料外问题。\n\n| 指标 | 实测 |\n|---|---:|\n|Recall@1|${pct(metrics.recallAt1)}|\n|Recall@5|${pct(metrics.recallAt5)}|\n|MRR|${metrics.mrr.toFixed(3)}|\n|资料外问题拒答率|${pct(metrics.noAnswerRefusal)}|\n\n单条标注对应一个目标章节，所以此处 Recall@k 也等价于命中率。\n\n**限制：**这只是由开发者编写的小样本开发集，不能视为独立测试、泛化能力或学习收益证明。未连接大模型，未评估生成内容的事实一致性和向量检索效果。需要在真实授权课程材料上增加独立标注问题，进行盲测、对照和人工引用核验。\n\n失败/未命中样例：\n${answerable.filter(r=>r.firstRelevant!==1).map(r=>`- ${r.id}：${r.question}；目标 ${r.section}；实际前五 ${r.retrieved.join('、')}`).join('\n')||'- 本次前一命中均通过，仍需独立测试。'}\n\n语料 SHA256：${result.corpusSha256}\n\n问题集 SHA256：${result.querySetSha256}\n\n完整结果见 evaluation.json。复现：npm run evaluate。\n`);
-console.log(JSON.stringify({metrics,documents:result.documents,chunks:result.chunks,questions:result.questions,elapsedMs:result.elapsedMs},null,2));
+import { createHash } from 'node:crypto';
+import { mkdir, writeFile } from 'node:fs/promises';
+import { performance } from 'node:perf_hooks';
+import { sampleDocuments } from '../lib/samples.ts';
+import { chunkDocuments, retrieve } from '../lib/retrieval.ts';
+import { questions } from './questions.ts';
+const chunks = chunkDocuments(sampleDocuments),
+  start = performance.now();
+const rows = questions.map(q => {
+  const hits = retrieve(q.question, chunks, 5);
+  return {
+    ...q,
+    retrieved: hits.map(h => h.section),
+    firstRelevant: q.section ? hits.findIndex(h => h.section === q.section) + 1 : 0,
+    refused: hits.length === 0,
+  };
+});
+const answerable = rows.filter(r => r.section),
+  unanswerable = rows.filter(r => !r.section);
+const metrics = {
+  recallAt1: answerable.filter(r => r.firstRelevant === 1).length / answerable.length,
+  recallAt5: answerable.filter(r => r.firstRelevant > 0).length / answerable.length,
+  mrr: answerable.reduce((n, r) => n + (r.firstRelevant ? 1 / r.firstRelevant : 0), 0) / answerable.length,
+  noAnswerRefusal: unanswerable.filter(r => r.refused).length / unanswerable.length,
+};
+const result = {
+  label: '小样本开发集；非独立测试集，非学习效果结论',
+  runAt: new Date().toISOString(),
+  corpusSha256: createHash('sha256').update(JSON.stringify(sampleDocuments)).digest('hex'),
+  querySetSha256: createHash('sha256').update(JSON.stringify(questions)).digest('hex'),
+  documents: sampleDocuments.length,
+  chunks: chunks.length,
+  questions: rows.length,
+  answerable: answerable.length,
+  unanswerable: unanswerable.length,
+  retrieval: 'BM25 (no embeddings, no LLM)',
+  elapsedMs: Math.round((performance.now() - start) * 100) / 100,
+  metrics,
+  rows,
+};
+await mkdir('docs', { recursive: true });
+await writeFile('docs/evaluation.json', JSON.stringify(result, null, 2));
+const pct = (x: number) => (x * 100).toFixed(1) + '%';
+await writeFile(
+  'docs/检索评测报告.md',
+  `# 知序检索评测（开发集）\n\n运行时间：${result.runAt}\n\n语料：${result.documents} 份原创示例资料，${result.chunks} 个片段。问题集：${result.answerable} 个可回答问题，${result.unanswerable} 个资料外问题。\n\n| 指标 | 实测 |\n|---|---:|\n|Recall@1|${pct(metrics.recallAt1)}|\n|Recall@5|${pct(metrics.recallAt5)}|\n|MRR|${metrics.mrr.toFixed(3)}|\n|资料外问题拒答率|${pct(metrics.noAnswerRefusal)}|\n\n单条标注对应一个目标章节，所以此处 Recall@k 也等价于命中率。\n\n**限制：**这只是由开发者编写的小样本开发集，不能视为独立测试、泛化能力或学习收益证明。未连接大模型，未评估生成内容的事实一致性和向量检索效果。需要在真实授权课程材料上增加独立标注问题，进行盲测、对照和人工引用核验。\n\n失败/未命中样例：\n${
+    answerable
+      .filter(r => r.firstRelevant !== 1)
+      .map(r => `- ${r.id}：${r.question}；目标 ${r.section}；实际前五 ${r.retrieved.join('、')}`)
+      .join('\n') || '- 本次前一命中均通过，仍需独立测试。'
+  }\n\n语料 SHA256：${result.corpusSha256}\n\n问题集 SHA256：${result.querySetSha256}\n\n完整结果见 evaluation.json。复现：npm run evaluate。\n`,
+);
+console.log(
+  JSON.stringify(
+    {
+      metrics,
+      documents: result.documents,
+      chunks: result.chunks,
+      questions: result.questions,
+      elapsedMs: result.elapsedMs,
+    },
+    null,
+    2,
+  ),
+);

@@ -1,6 +1,6 @@
 {
   "label": "小样本开发集；非独立测试集，非学习效果结论",
-  "runAt": "2026-10-21T04:04:21.998Z",
+  "runAt": "2026-10-22T02:23:59.494Z",
   "corpusSha256": "6383c6d10f48503a6c303accb2f8a66226793b990dcb83a5f0cf9b6ba3c72068",
   "querySetSha256": "3cf35ac6a2365b7b48d3a544413a20683dad2e79d203c01a9395ab89bb6ad263",
   "documents": 4,
@@ -9,7 +9,7 @@
   "answerable": 24,
   "unanswerable": 6,
   "retrieval": "BM25 (no embeddings, no LLM)",
-  "elapsedMs": 24.09,
+  "elapsedMs": 22.13,
   "metrics": {
     "recallAt1": 0.9583333333333334,
     "recallAt5": 1,
