@@ -16,16 +16,6 @@ const eslintConfig = defineConfig([
     "public/pdf.worker.min.mjs",
   ]),
   {
-    files: ["components/ui/**/*.{ts,tsx}", "hooks/use-mobile.ts"],
-    rules: {
-      // These files are vendored verbatim from shadcn@4.17.0. Keep the
-      // registry source intact while applying the stricter rules to Site code.
-      "@typescript-eslint/no-unused-vars": "off",
-      "react-hooks/purity": "off",
-      "react-hooks/set-state-in-effect": "off",
-    },
-  },
-  {
     // Tests assert on untyped JSON wire payloads sent to mocked model APIs.
     files: ["tests/**/*.ts"],
     rules: { "@typescript-eslint/no-explicit-any": "off" },
