@@ -104,7 +104,7 @@ for section_index, section in enumerate(text.split('<!-- page -->')):
         for item in ['01  有据问答 · Agent 与逐句核验', '02  理解检验 · AI 出题与费曼复述', '03  间隔复习 · 让理解留下来']:
             story.append(para(item, 'h2'))
         story.append(Spacer(1, 25))
-        story.append(para('福建农林大学 · 天选之子~。独立用户反馈仍在收集。'))
+        story.append(para('福建农林大学 · 天选之子~。'))
 
 SHOTS = ROOT / 'outputs'
 
@@ -146,4 +146,5 @@ all_text = '\n'.join(page.extract_text() for page in reader.pages)
 assert '检索评估' in all_text or '检索评' in all_text
 assert '模型' in all_text and '天选之子' in all_text and '福建农林大学' in all_text
 assert '开发稿' not in all_text and '待填写' not in all_text
+assert '后续工作' not in all_text and 'boxuegu.com' not in all_text and '仍在收集' not in all_text
 print(f'PDF written: {target}; pages={len(reader.pages)}; extracted_chars={len(all_text)}')
